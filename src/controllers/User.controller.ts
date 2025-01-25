@@ -59,11 +59,7 @@ class UserController {
 
             await NewUser.save();
 
-            return res.status(201).json({
-                success: true,
-                message: 'User created successfully',
-                data: NewUser
-            });
+            return res.status(201).json(NewUser);
 
         } catch (error) {
             return res.status(400).json({
@@ -73,6 +69,49 @@ class UserController {
         }
 
        
+    }
+
+    async login(req: Request, res: Response) {
+        const body:any = req.body;
+
+        if(!body) {
+            return res.status(400).json({
+                success: false,
+                error: 'You must provide a user'
+            });
+        }
+
+        if(!body.email || !body.senha ) {
+            return res.status(400).json({
+                success: false,
+                error: 'Preencha todos os campos',
+                email: body.email,
+                senha: body.senha,
+                body: req.body
+            });
+        }
+
+        try{
+            const existingUser:any = await User.findOne({email: body.email, senha: body.senha});
+
+            if(!existingUser) {
+                return res.status(400).json({
+                    success: false,
+                    error: "Usuário ou senha incorretos"
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                user: existingUser
+            });
+
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error: error
+            });
+        }
     }
 }
 

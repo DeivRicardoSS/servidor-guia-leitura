@@ -1,7 +1,16 @@
 {
-    "nome": "Adalberta",
+    "nome": "Sigma Boy",
     "nascimento": "2025-01-22T00:00:00Z",
-    "sexo": "Viado",
-    "email": "maluca@gmail.com",
+    "sexo": "Macho Alfa",
+    "email": "sigma@gmail.com",
     "senha": "sigmaboy"
+}
+
+{
+    "nome": "O menino que bateu as botas",
+    "autor": "O menino",
+    "genero": "Romance",
+    "quantPaginas": 200,
+    "pagAtual": 100,
+    "userId": "J:inDjA4y889ZGJs5tA5-r*bEo⁋pa8hBtiU*f⁋cKC-PFQpE2:%ciBMzd@bpXb⁂"
 }
