@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     sexo: {type: String, required: true},
     email: {type: String, required: true},
     senha: {type: String, required: true},
+    avatar: {type: String, required: true},
     userId: {type: String, required: true},
     livros: {type: [LivroSchema], required: true},
     xpTotal: {type: Number, required: true},

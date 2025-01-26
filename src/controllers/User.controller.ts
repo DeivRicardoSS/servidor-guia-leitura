@@ -18,7 +18,7 @@ class UserController {
         console.log(req.body)
         console.log(UserId())
 
-        if(!body.nome || !body.nascimento || !body.sexo || !body.email || !body.senha ) {
+        if(!body.nome || !body.nascimento || !body.sexo || !body.email || !body.senha || !body.avatar ) {
             return res.status(400).json({
                 success: false,
                 error: 'Preencha todos os campos',
@@ -49,6 +49,7 @@ class UserController {
                 sexo: body.sexo,
                 email: body.email,
                 senha: body.senha,
+                avatar: body.avatar,
                 userId: UserId(),
                 livros: [],
                 xpTotal: 0,
@@ -75,6 +76,7 @@ class UserController {
         const body:any = req.body;
 
         if(!body) {
+            console.error('You must provide a user')
             return res.status(400).json({
                 success: false,
                 error: 'You must provide a user'
@@ -82,6 +84,7 @@ class UserController {
         }
 
         if(!body.email || !body.senha ) {
+            console.error('Preencha todos os campos')
             return res.status(400).json({
                 success: false,
                 error: 'Preencha todos os campos',
@@ -95,16 +98,53 @@ class UserController {
             const existingUser:any = await User.findOne({email: body.email, senha: body.senha});
 
             if(!existingUser) {
+                console.error('Usuário ou senha incorretos')
                 return res.status(400).json({
                     success: false,
                     error: "Usuário ou senha incorretos"
                 });
             }
 
-            return res.status(200).json({
-                success: true,
-                user: existingUser
+            return res.send(existingUser);
+
+
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                error: error
             });
+        }
+    }
+
+    async confirmUser(req: Request, res: Response) {
+        const body:any = req.body;
+        if(!body) {
+            return res.status(400).json({
+                success: false,
+                error: 'You must provide a user'
+            });
+        }
+
+        if(!body.userId) {
+            return res.status(400).json({
+                success: false,
+                error: 'Preencha todos os campos',
+                userId: body.userId,
+                body: req.body
+            });
+        }
+
+        try{
+            const existingUser:any = await User.findOne({userId: body.userId});
+
+            if(!existingUser) {
+                return res.status(400).json({
+                    success: false,
+                    error: "Usuário inexistente"
+                });
+            }
+
+            return res.send(existingUser);
 
         } catch (error) {
             return res.status(400).json({
