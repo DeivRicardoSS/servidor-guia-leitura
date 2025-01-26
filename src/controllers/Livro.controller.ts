@@ -4,6 +4,7 @@ import UserSchema from "../database/User.database.ts";
 import { Request, Response } from "express";
 const User = mongoose.model('User', UserSchema, 'User');
 
+
 class Livro {
     async newLivro (req: Request, res: Response) {
         const body:any = req.body;
@@ -30,13 +31,23 @@ class Livro {
                 });
             }
 
+            if (!req.file || !req.file.path) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'Nenhuma imagem foi enviada',
+                });
+            }
+
             user.livros.push({
                 nome: body.nome,
                 autor: body.autor,
                 genero: body.genero,
                 quantPaginas: body.quantPaginas,
-                pagAtual: body.pagAtual
+                pagAtual: body.pagAtual,
+                link: req.file.path
             });
+
+            
 
             await user.save();
             return res.status(200).json({

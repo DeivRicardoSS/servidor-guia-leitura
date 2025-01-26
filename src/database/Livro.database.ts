@@ -5,7 +5,8 @@ const LivroSchema = new mongoose.Schema({
     autor: {type: String, required: true},
     genero: {type: String, required: true},
     quantPaginas: {type: Number, required: true},
-    pagAtual: {type: Number, required: true}
+    pagAtual: {type: Number, required: true},
+    link: {type: String, required: true},
 });
 
 export default LivroSchema;
