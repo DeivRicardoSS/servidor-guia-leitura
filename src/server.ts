@@ -10,6 +10,7 @@ app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/guia-de-leitura');
 
+
 app.use(router);
 
 app.listen(3000, ()=>{
