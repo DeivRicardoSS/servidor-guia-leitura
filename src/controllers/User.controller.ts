@@ -85,12 +85,9 @@ class UserController {
 
         if(!body.email || !body.senha ) {
             console.error('Preencha todos os campos')
-            return res.status(400).json({
+            return res.status(400).send({
                 success: false,
                 error: 'Preencha todos os campos',
-                email: body.email,
-                senha: body.senha,
-                body: req.body
             });
         }
 
@@ -99,17 +96,20 @@ class UserController {
 
             if(!existingUser) {
                 console.error('Usuário ou senha incorretos')
-                return res.status(400).json({
+                return res.status(400).send({
                     success: false,
                     error: "Usuário ou senha incorretos"
                 });
             }
 
-            return res.send(existingUser);
+            return res.status(200).send({
+                success: true,
+                response: existingUser
+            });
 
 
         } catch (error) {
-            return res.status(400).json({
+            return res.status(400).send({
                 success: false,
                 error: error
             });
