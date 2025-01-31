@@ -60,7 +60,7 @@ class UserController {
 
             await NewUser.save();
 
-            return res.status(201).json(NewUser);
+            return res.status(201).send(NewUser);
 
         } catch (error) {
             return res.status(400).json({
@@ -102,10 +102,7 @@ class UserController {
                 });
             }
 
-            return res.status(200).send({
-                success: true,
-                response: existingUser
-            });
+            return res.status(200).send(existingUser);
 
 
         } catch (error) {

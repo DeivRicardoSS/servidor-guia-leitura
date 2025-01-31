@@ -54,10 +54,7 @@ class Livro {
             
 
             await user.save();
-            return res.status(200).json({
-                success: true,
-                message: 'Livro adicionado com sucesso'
-            });
+            return res.status(200).json(user);
         } catch (error) {
             console.error(error);
             return res.status(500).json({
@@ -71,7 +68,7 @@ class Livro {
         const body:any = req.body;
         if (!body) {
             console.error('Requisição sem argumento');
-            return res.status(400).json({
+            return res.status(400).send({
                 success: false,
                 error: 'Requisição sem argumento'
             });
@@ -79,7 +76,7 @@ class Livro {
 
         if (!body.nome || !body.autor || !body.genero || !body.quantPaginas || !body.pagAtual || !body.userId || !body.link || !body.xp || !body.index) {
             console.error('Preencha todos os campos');
-            return res.status(400).json({
+            return res.status(400).send({
                 success: false,
                 error: 'Preencha todos os campos'
             });
@@ -89,7 +86,7 @@ class Livro {
             const user:any = await User.findOne({userId: body.userId});
             if (!user) {
                 console.error('Usuário não encontrado');
-                return res.status(400).json({
+                return res.status(400).send({
                     success: false,
                     error: 'Usuário não encontrado'
                 });
@@ -111,7 +108,7 @@ class Livro {
             return res.status(200).send(user);
         } catch (error) {
             console.error(error);
-            return res.status(500).json({
+            return res.status(500).send({
                 success: false,
                 error: 'Ocorreu um erro ao adicionar o livro'
             });
