@@ -14,7 +14,7 @@ class UserController {
                 error: 'You must provide a user'
             });
         }
-
+        
         console.log(req.body)
         console.log(UserId())
 

@@ -74,11 +74,25 @@ class Livro {
             });
         }
 
-        if (!body.nome || !body.autor || !body.genero || !body.quantPaginas || !body.pagAtual || !body.userId || !body.link || !body.xp || !body.index) {
+        if (!body.nome || !body.autor || !body.genero || !body.quantPaginas || !body.pagAtual || !body.userId || !body.link || !body.xp || body.index == null) {
             console.error('Preencha todos os campos');
+
+            const missingFields = [];
+
+            if (!body.nome) missingFields.push('nome');
+            if (!body.autor) missingFields.push('autor');
+            if (!body.genero) missingFields.push('genero');
+            if (!body.quantPaginas) missingFields.push('quantPaginas');
+            if (!body.pagAtual) missingFields.push('pagAtual');
+            if (!body.userId) missingFields.push('userId');
+            if (body.link == null) missingFields.push('link');
+            if (!body.xp) missingFields.push('xp');
+            if (!body.index) missingFields.push('index');
+
             return res.status(400).send({
                 success: false,
-                error: 'Preencha todos os campos'
+                error: 'Preencha todos os campos',
+                valoresFaltantes: missingFields
             });
         }
 
